@@ -1,16 +1,17 @@
 <?php
-// Archivo: includes/header.php
+// Declaración estricta de tipos y definición de la constante BASE_PATH si no está definida
 declare(strict_types=1);
 
 if (!defined('BASE_PATH')) {
     define('BASE_PATH', '');
 }
 
+// 1. Inicialización de la sesión y manejo de errores
 $u = function_exists('me') ? me() : null;
 $notice = $_SESSION['flash'] ?? null;
 unset($_SESSION['flash']);
 
-// Cálculo dinámico de unidades y monto total del carrito en sesión
+// 2. Cálculo dinámico de unidades y monto total del carrito en sesión
 $cantidad_total = 0;
 $monto_total = 0.0;
 
@@ -23,9 +24,46 @@ if (!empty($_SESSION['carrito']) && is_array($_SESSION['carrito'])) {
     }
 }
 
-// Identificar página actual para marcar el estado activo en el navbar
+// 3. Identificar página actual para marcar el estado activo en el navbar
 $currentScript = basename($_SERVER['PHP_SELF'] ?? 'index.php');
 $isHome = ($currentScript === 'index.php');
+
+// 4. Resolvedor automático de rutas optimizado para extensiones .png
+$projectRoot = dirname(__DIR__);
+
+// Función para resolver la ruta de un archivo .png en múltiples directorios
+if (!function_exists('resolve_png_logo')) {
+    function resolve_png_logo(string $baseName, string $projectRoot): ?string
+    {
+        $directories = ['assets/img/', 'img/', 'assets/images/', 'images/'];
+        foreach ($directories as $dir) {
+            $relativePath = $dir . $baseName . '.png';
+            $fullDiskPath = $projectRoot . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $relativePath);
+            if (is_file($fullDiskPath)) {
+                return BASE_PATH . $relativePath;
+            }
+        }
+        return null;
+    }
+}
+
+// 5. Resolución de logos multi-resolución para favicon y marca
+$logo1x = resolve_png_logo('la40_logo_1x', $projectRoot) ?? resolve_png_logo('logo', $projectRoot);
+$logo2x = resolve_png_logo('la40_logo_2x', $projectRoot);
+$logo3x = resolve_png_logo('la40_logo_3x', $projectRoot);
+
+// Construir el atributo srcset dinámicamente con los archivos .png encontrados
+$srcsetParts = [];
+if ($logo1x !== null) {
+    $srcsetParts[] = $logo1x . ' 1x';
+}
+if ($logo2x !== null) {
+    $srcsetParts[] = $logo2x . ' 2x';
+}
+if ($logo3x !== null) {
+    $srcsetParts[] = $logo3x . ' 3x';
+}
+$logoSrcset = implode(', ', $srcsetParts);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -35,8 +73,10 @@ $isHome = ($currentScript === 'index.php');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= function_exists('e') ? e($pageTitle ?? 'Restaurante La 40 - Sabor Urbano y Tradición') : 'Restaurante La 40' ?></title>
 
-    <!-- Favicon del sitio usando el logo local -->
-    <link rel="icon" type="image/jpeg" href="<?= BASE_PATH ?>assets/img/la40_logo_1x.jpg">
+    <!-- Condicional para favicon multi-resolución si se encuentra el logo 1x -->
+    <?php if ($logo1x !== null): ?>
+        <link rel="icon" type="image/png" href="<?= htmlspecialchars($logo1x, ENT_QUOTES, 'UTF-8') ?>">
+    <?php endif; ?>
 
     <!-- Tipografías del Sistema de Diseño: Plus Jakarta Sans & Be Vietnam Pro -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -54,17 +94,26 @@ $isHome = ($currentScript === 'index.php');
 <body>
     <header class="site-header">
         <div class="header-inner">
-            <!-- 1. Marca y Logo Responsivo Multi-Resolución (1x, 2x, 3x) -->
+            <!-- 1. Marca y Logo PNG Transparente Multi-Resolución -->
             <a href="<?= BASE_PATH ?>index.php" class="brand-group" aria-label="Ir al inicio de Restaurante La 40">
-                <img alt="Logo Restaurante La 40"
-                    class="brand-logo"
-                    src="<?= BASE_PATH ?>assets/img/la40_logo_1x.jpg"
-                    srcset="<?= BASE_PATH ?>assets/img/la40_logo_1x.jpg 1x,
-                             <?= BASE_PATH ?>assets/img/la40_logo_2x.jpg 2x,
-                             <?= BASE_PATH ?>assets/img/la40_logo_3x.jpg 3x"
-                    width="48"
-                    height="48"
-                    decoding="async">
+                <?php if ($logo1x !== null): ?>
+                    <img alt="La 40"
+                        class="brand-logo"
+                        src="<?= htmlspecialchars($logo1x, ENT_QUOTES, 'UTF-8') ?>"
+                        <?= $logoSrcset !== '' ? 'srcset="' . htmlspecialchars($logoSrcset, ENT_QUOTES, 'UTF-8') . '"' : '' ?>
+                        width="42"
+                        height="42"
+                        decoding="async"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
+                    <span class="brand-logo-fallback" style="display: none;" aria-hidden="true">
+                        <span class="material-symbols-outlined">local_fire_department</span>
+                    </span>
+                <?php else: ?>
+                    <span class="brand-logo-fallback" aria-hidden="true">
+                        <span class="material-symbols-outlined">local_fire_department</span>
+                    </span>
+                <?php endif; ?>
+
                 <div class="brand-copy">
                     <span class="brand-title">La 40</span>
                     <span class="brand-subtitle">Sabor colombiano al mejor precio</span>
