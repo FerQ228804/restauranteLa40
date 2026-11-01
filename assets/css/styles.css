@@ -1,0 +1,1008 @@
+/* ==========================================================================
+   1. DESIGN TOKENS - SISTEMA "SABOR URBANO Y TRADICIÓN" (DESIGN.md)
+   ========================================================================== */
+:root {
+    /* Superficies Orgánicas y Cálidas */
+    --surface: #fcf9f4;
+    --surface-dim: #dcdad5;
+    --surface-bright: #fcf9f4;
+    --surface-container-lowest: #ffffff;
+    --surface-container-low: #f6f3ee;
+    --surface-container: #f0ede9;
+    --surface-container-high: #ebe8e3;
+    --surface-container-highest: #e5e2dd;
+    --surface-cream: #FAF7F2;
+    --surface-card: #FFFDF9;
+
+    /* Paleta Principal y Semántica (Sin tonos carbón ni grises fríos) */
+    --primary: #a43716;                /* Terracota profundo de marca */
+    --primary-cta: #D95D39;            /* Terracota Tostado para conversión */
+    --primary-container: #c54f2c;
+    --on-primary: #ffffff;
+    --primary-fixed: #ffdbd1;
+    --terracotta-deep: #BF4724;
+    --terracotta-soft: #FDEEE9;
+
+    /* Acentos Herbales y Ámbar */
+    --secondary: #006a60;
+    --mint-herbal: #2A9D8F;            /* Verde Hierbabuena */
+    --mint-subtle: #E6F5F2;
+    --tertiary: #97422b;
+    --tertiary-clay: #E07A5F;          /* Ámbar Arcilla */
+    --amber-highlight: #F4A261;
+
+    /* Estados de Error y Alerta */
+    --error: #ba1a1a;
+    --error-container: #ffdad6;
+    --on-error: #ffffff;
+
+    /* Textos y Bordes Cálidos (Sustitución de Charcoal por Espresso Tostado) */
+    --espresso-roast: #3B180E;         /* Reemplaza #231F20 con madera/cacao profundo */
+    --espresso-hover: #522315;
+    --on-surface: #3B180E;
+    --on-surface-variant: #58423c;
+    --muted-stone: #736B65;
+    --outline: #8b716a;
+    --outline-variant: #dfc0b7;
+    --border-warm: #EADBCE;
+
+    /* Tipografía */
+    --font-heading: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-body: 'Be Vietnam Pro', system-ui, -apple-system, sans-serif;
+
+    /* Radios de Borde (Shapes) */
+    --rounded-sm: 0.25rem;             /* 4px */
+    --rounded: 0.5rem;                 /* 8px */
+    --rounded-md: 0.75rem;             /* 12px */
+    --rounded-lg: 1rem;                /* 16px */
+    --rounded-xl: 1.5rem;              /* 24px */
+    --rounded-full: 9999px;
+
+    /* Escala Modular de Espaciado */
+    --gutter: 1rem;
+    --gutter-lg: 1.5rem;
+    --space-2xs: 0.25rem;              /* 4px */
+    --space-xs: 0.375rem;              /* 6px */
+    --space-sm: 0.5rem;                /* 8px */
+    --space-md: 0.75rem;               /* 12px */
+    --space-lg: 1rem;                  /* 16px */
+    --space-xl: 1.5rem;                /* 24px */
+    --space-2xl: 2rem;                 /* 32px */
+    --space-3xl: 3rem;                 /* 48px */
+
+    /* Niveles de Elevación Cálida (Depth Levels) */
+    --shadow-header: 0 1px 8px rgba(164, 55, 22, 0.07);
+    --shadow-level-1: 0 4px 14px -2px rgba(191, 71, 36, 0.06), 0 2px 6px -1px rgba(88, 66, 60, 0.05);
+    --shadow-level-2: 0 10px 24px -4px rgba(217, 93, 57, 0.14), 0 4px 10px -2px rgba(88, 66, 60, 0.07);
+    --shadow-level-3: 0 -8px 28px -6px rgba(88, 66, 60, 0.14);
+    --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================================================
+   2. RESET Y BASE
+   ========================================================================== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 96px; /* Compensa la altura del header fijo (80px) */
+}
+
+body {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 24px;
+    margin: 0;
+    padding-top: 80px; /* Espacio reservado para el header fixed h-20 (80px) */
+    background-color: var(--surface-cream);
+    color: var(--on-surface);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+}
+
+main {
+    flex: 1;
+}
+
+/* Configuraciones de Material Symbols */
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 20;
+    user-select: none;
+    line-height: 1;
+}
+
+/* Accesibilidad de foco */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+    outline: 2px solid var(--primary-cta);
+    outline-offset: 2px;
+}
+
+/* ==========================================================================
+   3. HEADER Y NAVBAR ESTILO GLASSMORPHISM (includes/header.php)
+   ========================================================================== */
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1050;
+    background-color: rgba(252, 249, 244, 0.92); /* bg-surface/90 cálido */
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: var(--shadow-header);
+    border-bottom: 1px solid var(--border-warm);
+}
+
+.header-inner {
+    height: 80px; /* h-20 */
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 var(--gutter-lg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-lg);
+}
+
+/* Identidad de Marca */
+.brand-group {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    min-width: fit-content;
+    text-decoration: none;
+}
+
+.brand-logo {
+    width: 48px;
+    height: 48px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: var(--rounded-full); /* Recorta las esquinas del JPG siguiendo el anillo del logo */
+    border: 2px solid var(--amber-highlight);
+    box-shadow: 0 2px 8px rgba(164, 55, 22, 0.18);
+    flex-shrink: 0;
+    transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.brand-group:hover .brand-logo {
+    transform: scale(1.05);
+    border-color: var(--primary-cta);
+}
+
+.brand-copy {
+    display: flex;
+    flex-direction: column;
+}
+
+.brand-title {
+    font-family: var(--font-heading);
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--espresso-roast);
+}
+
+.brand-subtitle {
+    font-family: var(--font-heading);
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 14px;
+    letter-spacing: 0.04em;
+    color: var(--primary);
+}
+
+/* Barra de Navegación Central */
+.main-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+.nav-pill {
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--rounded);
+    font-family: var(--font-heading);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 18px;
+    color: var(--on-surface-variant);
+    text-decoration: none;
+    transition: background-color var(--transition-fast), color var(--transition-fast);
+    white-space: nowrap;
+}
+
+.nav-pill:hover {
+    color: var(--on-surface);
+    background-color: var(--surface-container-high);
+}
+
+.nav-pill.is-active,
+.nav-pill[aria-current="page"] {
+    background-color: var(--primary-container);
+    color: var(--on-primary);
+    font-weight: 700;
+}
+
+/* Controles de Acción Derecha */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.btn-reset {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.action-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--rounded);
+    font-family: var(--font-heading);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 18px;
+    color: var(--on-surface-variant);
+    text-decoration: none;
+    transition: background-color var(--transition-fast), color var(--transition-fast);
+    white-space: nowrap;
+}
+
+.action-link:hover {
+    color: var(--on-surface);
+    background-color: var(--surface-container-high);
+}
+
+/* Botón Reservar / Registro */
+.action-reserve {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--rounded);
+    font-family: var(--font-heading);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 18px;
+    background-color: var(--terracotta-soft);
+    color: var(--terracotta-deep);
+    text-decoration: none;
+    transition: background-color var(--transition-fast), transform var(--transition-fast);
+    white-space: nowrap;
+}
+
+.action-reserve:hover {
+    background-color: var(--primary-fixed);
+    color: var(--on-primary-fixed);
+}
+
+/* Píldora del Carrito de Compras ("Mi Pedido") */
+.action-cart-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: 7px var(--space-md);
+    border-radius: var(--rounded-full);
+    background-color: var(--espresso-roast);
+    color: var(--surface-container-lowest);
+    font-family: var(--font-heading);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 18px;
+    text-decoration: none;
+    box-shadow: var(--shadow-level-1);
+    transition: background-color var(--transition-fast), transform var(--transition-fast);
+    white-space: nowrap;
+}
+
+.action-cart-pill:hover {
+    background-color: var(--primary);
+    color: var(--on-primary);
+    transform: translateY(-1px);
+}
+
+.cart-icon {
+    font-size: 18px;
+    color: var(--amber-highlight);
+}
+
+.cart-text-mobile {
+    display: none;
+}
+
+/* Botón Circular de Usuario */
+.user-avatar-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: var(--rounded-full);
+    background-color: var(--primary);
+    color: var(--on-primary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: background-color var(--transition-fast), transform var(--transition-fast);
+    flex-shrink: 0;
+}
+
+.user-avatar-btn:hover {
+    background-color: var(--terracotta-deep);
+    color: var(--on-primary);
+    transform: scale(1.05);
+}
+
+.avatar-icon {
+    font-size: 18px;
+}
+
+.flash-wrapper {
+    margin-top: var(--space-lg);
+}
+
+/* ==========================================================================
+   4. LAYOUT, CONTENEDORES Y JERARQUÍA TIPOGRÁFICA
+   ========================================================================== */
+.container {
+    width: 100%;
+    max-width: 1240px; /* Desktop max-width de DESIGN.md */
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--gutter-lg);
+    padding-right: var(--gutter-lg);
+}
+
+/* Superficies de Vistas y Secciones Principales (Level 1 Elevation) */
+main.container,
+section.container,
+.cardbox {
+    background-color: var(--surface-card);
+    margin-top: var(--space-2xl);
+    margin-bottom: var(--space-3xl);
+    padding: clamp(24px, 4vw, 40px);
+    border-radius: var(--rounded-lg);
+    box-shadow: var(--shadow-level-1);
+    border: 1px solid var(--border-warm);
+}
+
+.auth-container {
+    max-width: 520px;
+}
+
+/* Escala Tipográfica de Encabezados */
+main.container h1,
+main.container h2,
+section.container h2,
+.cardbox h1,
+.cardbox h2 {
+    font-family: var(--font-heading);
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 40px;
+    letter-spacing: -0.01em;
+    color: var(--on-surface);
+    border-bottom: 1px solid var(--border-warm);
+    padding-bottom: var(--space-md);
+    margin-top: 0;
+    margin-bottom: var(--space-xl);
+}
+
+/* ==========================================================================
+   5. HERO BANNER (index.php)
+   ========================================================================== */
+.hero-banner {
+    background: linear-gradient(
+            90deg,
+            rgba(59, 24, 14, 0.88) 0%,
+            rgba(92, 44, 22, 0.65) 55%,
+            rgba(92, 44, 22, 0.30) 100%
+        ),
+        url('../img/baner01.png') center/cover no-repeat;
+    color: var(--surface-container-lowest);
+    text-align: center;
+    padding: clamp(72px, 10vw, 120px) var(--gutter-lg);
+    border-bottom: 1px solid var(--border-warm);
+}
+
+.banner-content {
+    max-width: 780px;
+    margin: 0 auto;
+}
+
+.hero-banner h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(34px, 5vw, 48px); /* display / display-mobile */
+    font-weight: 800;
+    line-height: 1.16;
+    letter-spacing: -0.02em;
+    margin: 0 0 var(--space-lg);
+    border: none;
+    color: var(--surface-container-lowest);
+    text-shadow: 0 4px 16px rgba(59, 24, 14, 0.45);
+}
+
+.hero-banner p {
+    font-family: var(--font-body);
+    font-size: clamp(16px, 2vw, 18px);
+    line-height: 1.6;
+    color: var(--surface-cream);
+    margin: 0 auto var(--space-xl);
+    max-width: 620px;
+}
+
+/* ==========================================================================
+   6. CATEGORÍAS Y TARJETAS DE PRODUCTOS (.menu-item - DESIGN.md)
+   ========================================================================== */
+.menu-category {
+    margin-top: var(--space-2xl);
+}
+
+.menu-category:first-of-type {
+    margin-top: var(--space-lg);
+}
+
+/* Chip / Encabezado de Categoría */
+.category-title {
+    font-family: var(--font-heading);
+    font-size: 22px; /* headline-md */
+    font-weight: 700;
+    line-height: 28px;
+    color: var(--terracotta-deep);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    background-color: var(--terracotta-soft);
+    padding: var(--space-sm) var(--space-lg);
+    border-radius: var(--rounded-xl);
+    border: 1px solid var(--outline-variant);
+    margin-bottom: var(--space-lg);
+}
+
+/* Grilla 1 col móvil / 2 col tablet / 3 col desktop */
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--gutter-lg);
+    margin-top: var(--space-md);
+}
+
+/* Level 1 -> Level 2 Product Card */
+.menu-item {
+    background-color: var(--surface-card);
+    border: 1px solid var(--border-warm);
+    border-radius: var(--rounded-lg); /* 16px */
+    padding: var(--space-lg);
+    text-align: left;
+    box-shadow: var(--shadow-level-1);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.menu-item:hover {
+    transform: translateY(-2px); /* Especificación Level 2 de DESIGN.md */
+    box-shadow: var(--shadow-level-2);
+    border-color: var(--amber-highlight);
+}
+
+.producto-img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    height: auto;
+    object-fit: cover;
+    border-radius: var(--rounded-md);
+    margin-bottom: var(--space-md);
+    display: block;
+}
+
+.producto-img-placeholder {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    background-color: var(--terracotta-soft);
+    color: var(--terracotta-deep);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-md);
+    border-radius: var(--rounded-md);
+    margin-bottom: var(--space-md);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 14px;
+    text-align: center;
+    border: 1px dashed var(--outline-variant);
+}
+
+/* Tier 1: Visual & Narrative Top */
+.menu-item h3 {
+    font-family: var(--font-heading);
+    font-size: 18px; /* headline-sm */
+    font-weight: 700;
+    line-height: 24px;
+    color: var(--on-surface);
+    margin: 0 0 var(--space-xs);
+}
+
+.menu-item p {
+    font-family: var(--font-body);
+    font-size: 14px; /* body-md */
+    line-height: 21px;
+    color: var(--muted-stone);
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Truncado a 3 líneas según DESIGN.md */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Tier 2: Commerce Footer */
+.menu-item-bottom {
+    margin-top: var(--space-lg);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--border-warm);
+}
+
+.precio,
+.price {
+    font-family: var(--font-heading);
+    font-size: 20px; /* price-lg */
+    font-weight: 800;
+    line-height: 24px;
+    letter-spacing: -0.01em;
+    color: var(--primary-cta); /* #D95D39 según DESIGN.md */
+    margin-bottom: var(--space-md);
+}
+
+/* Micro-Insignias (Badges) */
+.badge-sabor {
+    background-color: var(--terracotta-soft);
+    color: var(--terracotta-deep);
+}
+
+.badge-fresco {
+    background-color: var(--mint-subtle);
+    color: var(--mint-herbal);
+}
+
+.badge-promo {
+    background-color: var(--amber-highlight);
+    color: var(--espresso-roast);
+}
+
+/* ==========================================================================
+   7. BOTONES E INPUTS (DESIGN.md)
+   ========================================================================== */
+.btn,
+.btn-agregar,
+.btn-add {
+    min-height: 44px; /* Altura táctil segura según DESIGN.md */
+    padding: 10px 18px;
+    border: none;
+    border-radius: var(--rounded); /* 0.5rem (8px) */
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    font-family: var(--font-heading);
+    font-size: 15px; /* label-lg */
+    font-weight: 600;
+    line-height: 20px;
+    transition: background-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+
+/* Primary Button (.btn-agregar, Checkout) */
+.btn-agregar,
+.btn-add,
+.btn-primary {
+    background-color: var(--primary-cta) !important; /* #D95D39 */
+    border-color: var(--primary-cta) !important;
+    color: #ffffff !important;
+}
+
+.btn-agregar,
+.btn-add {
+    width: 100%;
+}
+
+.btn-agregar:hover,
+.btn-add:hover,
+.btn-primary:hover {
+    background-color: var(--terracotta-deep) !important; /* #BF4724 */
+    border-color: var(--terracotta-deep) !important;
+    box-shadow: 0 4px 12px rgba(217, 93, 57, 0.28);
+    transform: translateY(-1px);
+}
+
+/* Secondary / Ghost Button */
+.btn-secondary {
+    background-color: var(--surface-container-low) !important;
+    border: 1.5px solid var(--primary-cta) !important;
+    color: var(--terracotta-deep) !important;
+}
+
+.btn-secondary:hover {
+    background-color: var(--terracotta-soft) !important;
+    color: var(--primary) !important;
+}
+
+/* Botón de Peligro / Eliminar */
+.btn-danger {
+    background-color: var(--error) !important;
+    border-color: var(--error) !important;
+    color: var(--on-error) !important;
+}
+
+.btn-danger:hover {
+    background-color: #93000a !important;
+}
+
+/* Form Inputs & Selects */
+.form-label {
+    font-family: var(--font-heading);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--on-surface);
+    margin-bottom: var(--space-xs);
+    display: inline-block;
+}
+
+.form-control,
+.form-select {
+    background-color: var(--surface-card);
+    border: 1.5px solid var(--border-warm);
+    padding: 12px 16px;
+    border-radius: var(--rounded); /* 0.5rem */
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--on-surface);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.form-control::placeholder {
+    color: #A89F97;
+}
+
+.form-control:focus,
+.form-select:focus {
+    background-color: var(--surface-container-lowest);
+    border-color: var(--primary-cta);
+    box-shadow: 0 0 0 3px rgba(217, 93, 57, 0.15);
+    outline: none;
+}
+
+/* Enlaces internos */
+main.container a:not(.btn),
+.cardbox a:not(.btn) {
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+main.container a:not(.btn):hover,
+.cardbox a:not(.btn):hover {
+    color: var(--terracotta-deep);
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   8. CARRITO DE COMPRAS Y TABLAS (pages/pedidoCarrito.php y admin/)
+   ========================================================================== */
+.cart-empty {
+    text-align: center;
+    padding: var(--space-3xl) var(--space-lg);
+    font-size: 16px;
+    color: var(--muted-stone);
+}
+
+.table-responsive {
+    overflow-x: auto;
+    margin-top: var(--space-lg);
+    border-radius: var(--rounded-md);
+    border: 1px solid var(--border-warm);
+    box-shadow: var(--shadow-level-1);
+}
+
+.cart-table,
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--surface-card);
+    margin-bottom: 0;
+}
+
+.cart-table th,
+.cart-table td,
+.table th,
+.table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border-warm);
+    text-align: left;
+    vertical-align: middle;
+    color: var(--on-surface);
+    font-size: 14px;
+}
+
+.cart-table th,
+.table thead th {
+    background-color: var(--terracotta-soft);
+    color: var(--terracotta-deep);
+    font-family: var(--font-heading);
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-bottom: 2px solid var(--border-warm);
+}
+
+.cart-table tbody tr:hover {
+    background-color: var(--surface-cream);
+}
+
+.cart-table .total-row td,
+.cart-table .total {
+    font-family: var(--font-heading);
+    font-size: 20px;
+    font-weight: 800;
+    text-align: right;
+    background-color: var(--terracotta-soft);
+    color: var(--primary);
+}
+
+.form-inline {
+    display: inline-flex;
+    gap: var(--space-sm);
+    align-items: center;
+    margin: 0;
+}
+
+/* Quantity Stepper / Input */
+.input-cantidad {
+    width: 72px;
+    min-height: 40px;
+    padding: 6px 10px;
+    background-color: var(--surface-cream);
+    border: 1.5px solid var(--border-warm);
+    border-radius: var(--rounded-xl);
+    text-align: center;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--on-surface);
+}
+
+.cart-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--border-warm);
+}
+
+/* ==========================================================================
+   9. FOOTER CÁLIDO Y TRADICIONAL (includes/footer.php)
+   ========================================================================== */
+.main-footer {
+    background-color: var(--espresso-roast);
+    color: var(--surface-cream);
+    margin-top: auto;
+    padding-top: var(--space-3xl);
+    border-top: 4px solid var(--amber-highlight);
+}
+
+.main-footer .container.footgrid {
+    background: transparent;
+    box-shadow: none;
+    border: none;
+    margin: 0 auto;
+    padding: 0 var(--gutter-lg) var(--space-2xl);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-2xl);
+    text-align: left;
+}
+
+.main-footer section h2 {
+    font-family: var(--font-heading);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--amber-highlight);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-top: 0;
+    margin-bottom: var(--space-md);
+    border-bottom: 1px solid rgba(244, 162, 97, 0.25);
+    padding-bottom: var(--space-sm);
+}
+
+.main-footer section p {
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--surface-container-high);
+    margin: 0;
+}
+
+.social-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+}
+
+.social-links li a {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--espresso-hover);
+    color: var(--surface-card);
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: var(--rounded);
+    font-family: var(--font-heading);
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid rgba(244, 162, 97, 0.35);
+    transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.social-links li a:hover {
+    background-color: var(--primary-cta);
+    border-color: var(--amber-highlight);
+    transform: translateY(-2px);
+}
+
+/* Cintilla Promocional con Tertiary Clay (#E07A5F) de DESIGN.md */
+.main-footer .ribbon {
+    background-color: var(--tertiary-clay);
+    color: var(--surface-container-lowest);
+    text-align: center;
+    padding: 12px var(--gutter-lg);
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.main-footer .copy {
+    text-align: center;
+    color: var(--outline-variant);
+    font-size: 12px;
+    padding: var(--space-lg) var(--gutter-lg) var(--space-xs);
+}
+
+.main-footer .footer-links {
+    list-style: none;
+    padding: 0 var(--gutter-lg) var(--space-xl);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: var(--space-xl);
+    flex-wrap: wrap;
+}
+
+.main-footer .footer-links a {
+    color: var(--surface-container-high);
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-size: 12px;
+    font-weight: 600;
+    transition: color var(--transition-fast);
+}
+
+.main-footer .footer-links a:hover {
+    color: var(--amber-highlight);
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   10. BREAKPOINTS RESPONSIVOS (Especificación 12-Col DESIGN.md)
+   ========================================================================== */
+/* Tablet (768px - 1024px): Grilla de 2 columnas */
+@media (max-width: 1024px) {
+    .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--gutter);
+    }
+
+    .main-nav {
+        overflow-x: auto;
+        scrollbar-width: none;
+        padding-bottom: 2px;
+    }
+
+    .main-nav::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+/* Mobile (< 768px): Grilla de 1 columna y adaptación de Header */
+@media (max-width: 768px) {
+    body {
+        padding-top: 118px; /* Ajuste para header en 2 filas en móvil */
+    }
+
+    .container {
+        padding-left: var(--gutter);
+        padding-right: var(--gutter);
+    }
+
+    .header-inner {
+        height: auto;
+        padding: var(--space-sm) var(--gutter);
+        flex-wrap: wrap;
+        gap: var(--space-sm);
+    }
+
+    .main-nav {
+        order: 3;
+        width: 100%;
+        justify-content: flex-start;
+        border-top: 1px solid var(--border-warm);
+        padding-top: var(--space-xs);
+    }
+
+    .hide-mobile,
+    .cart-text-desktop {
+        display: none !important;
+    }
+
+    .cart-text-mobile {
+        display: inline;
+        font-weight: 700;
+    }
+
+    .menu-grid {
+        grid-template-columns: 1fr;
+    }
+
+    main.container h1,
+    main.container h2,
+    section.container h2,
+    .cardbox h1,
+    .cardbox h2 {
+        font-size: 26px; /* headline-lg-mobile */
+        line-height: 34px;
+    }
+
+    .main-footer .container.footgrid {
+        grid-template-columns: 1fr;
+        gap: var(--space-xl);
+        text-align: center;
+    }
+
+    .social-links {
+        justify-content: center;
+    }
+
+    .cart-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .cart-actions .btn,
+    .cart-actions .form-inline,
+    .cart-actions .form-inline button {
+        width: 100%;
+        justify-content: center;
+    }
+}
