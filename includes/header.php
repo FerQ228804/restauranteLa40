@@ -35,7 +35,7 @@ $projectRoot = dirname(__DIR__);
 if (!function_exists('resolve_png_logo')) {
     function resolve_png_logo(string $baseName, string $projectRoot): ?string
     {
-        $directories = ['assets/img/', 'img/', 'assets/images/', 'images/'];
+        $directories = ['assets/img/', 'img/'];
         foreach ($directories as $dir) {
             $relativePath = $dir . $baseName . '.png';
             $fullDiskPath = $projectRoot . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $relativePath);
@@ -48,9 +48,9 @@ if (!function_exists('resolve_png_logo')) {
 }
 
 // 5. Resolución de logos multi-resolución para favicon y marca
-$logo1x = resolve_png_logo('la40_logo_1x', $projectRoot) ?? resolve_png_logo('logo', $projectRoot);
-$logo2x = resolve_png_logo('la40_logo_2x', $projectRoot);
-$logo3x = resolve_png_logo('la40_logo_3x', $projectRoot);
+$logo1x = resolve_png_logo('logo-la40-64', $projectRoot) ?? resolve_png_logo('logo', $projectRoot);
+$logo2x = resolve_png_logo('logo-la40-128', $projectRoot);
+$logo3x = resolve_png_logo('logo-la40-192', $projectRoot);
 
 // Construir el atributo srcset dinámicamente con los archivos .png encontrados
 $srcsetParts = [];
@@ -115,7 +115,7 @@ $logoSrcset = implode(', ', $srcsetParts);
                 <?php endif; ?>
 
                 <div class="brand-copy">
-                    <span class="brand-title">La 40</span>
+                    <span class="brand-title">Restaurante La 40</span>
                     <span class="brand-subtitle">Sabor colombiano al mejor precio</span>
                 </div>
             </a>
