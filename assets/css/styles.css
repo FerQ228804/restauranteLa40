@@ -1,5 +1,5 @@
 /* ==========================================================================
-   1. DESIGN TOKENS - SISTEMA "SABOR URBANO Y TRADICIÓN" (DESIGN.md)
+   1. DESIGN TOKENS - SISTEMA "SABOR URBANO Y TRADICIÓN"
    ========================================================================== */
 :root {
     /* Superficies Orgánicas y Cálidas */
@@ -14,9 +14,9 @@
     --surface-cream: #FAF7F2;
     --surface-card: #FFFDF9;
 
-    /* Paleta Principal y Semántica (Sin tonos carbón ni grises fríos) */
-    --primary: #a43716;                /* Terracota profundo de marca */
-    --primary-cta: #D95D39;            /* Terracota Tostado para conversión */
+    /* Paleta Principal y Semántica */
+    --primary: #a43716;
+    --primary-cta: #D95D39;
     --primary-container: #c54f2c;
     --on-primary: #ffffff;
     --primary-fixed: #ffdbd1;
@@ -37,7 +37,7 @@
     --on-error: #ffffff;
 
     /* Textos y Bordes Cálidos (Sustitución de Charcoal por Espresso Tostado) */
-    --espresso-roast: #3B180E;         /* Reemplaza #231F20 con madera/cacao profundo */
+    --espresso-roast: #3B180E;
     --espresso-hover: #522315;
     --on-surface: #3B180E;
     --on-surface-variant: #58423c;
@@ -459,7 +459,7 @@ section.container h2,
 }
 
 /* ==========================================================================
-   6. CATEGORÍAS Y TARJETAS DE PRODUCTOS (.menu-item - DESIGN.md)
+   6. CATEGORÍAS Y TARJETAS DE PRODUCTOS (.menu-item)
    ========================================================================== */
 .menu-category {
     margin-top: var(--space-2xl);
@@ -509,7 +509,7 @@ section.container h2,
 }
 
 .menu-item:hover {
-    transform: translateY(-2px); /* Especificación Level 2 de DESIGN.md */
+    transform: translateY(-2px); /* Especificación Level 2*/
     box-shadow: var(--shadow-level-2);
     border-color: var(--amber-highlight);
 }
@@ -559,7 +559,7 @@ section.container h2,
     color: var(--muted-stone);
     margin: 0;
     display: -webkit-box;
-    -webkit-line-clamp: 3; /* Truncado a 3 líneas según DESIGN.md */
+    -webkit-line-clamp: 3;
     line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
@@ -600,12 +600,12 @@ section.container h2,
 }
 
 /* ==========================================================================
-   7. BOTONES E INPUTS (DESIGN.md)
+   7. BOTONES E INPUTS
    ========================================================================== */
 .btn,
 .btn-agregar,
 .btn-add {
-    min-height: 44px; /* Altura táctil segura según DESIGN.md */
+    min-height: 44px; /* Altura táctil segura */
     padding: 10px 18px;
     border: none;
     border-radius: var(--rounded); /* 0.5rem (8px) */
@@ -886,7 +886,7 @@ main.container a:not(.btn):hover,
     transform: translateY(-2px);
 }
 
-/* Cintilla Promocional con Tertiary Clay (#E07A5F) de DESIGN.md */
+/* Cintilla Promocional con Tertiary Clay (#E07A5F) */
 .main-footer .ribbon {
     background-color: var(--tertiary-clay);
     color: var(--surface-container-lowest);
@@ -931,7 +931,7 @@ main.container a:not(.btn):hover,
 }
 
 /* ==========================================================================
-   10. BREAKPOINTS RESPONSIVOS (Especificación 12-Col DESIGN.md)
+   10. BREAKPOINTS RESPONSIVOS (Especificación 12-Col)
    ========================================================================== */
 /* Tablet (768px - 1024px): Grilla de 2 columnas */
 @media (max-width: 1024px) {
